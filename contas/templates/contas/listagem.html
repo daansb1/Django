@@ -1,66 +1,78 @@
 {% extends 'contas/base.html' %}
 {% load bootstrap %}
-{% block title %}Adicionar um post{% endblock %}
+{% block title %}Projeto - Controle Gastos{% endblock %}
 
 {% block content %}
-
-<div  class="container-fluid">
-    <ul class="list-group">
-        {% for transacao in transacoes %}
-        <li><a href="{% url 'url_update' transacao.id %}">{{ transacao.descricao }} - {{ transacao.data }} {{ transacao.valor }} - {{ transacao.categoria }}</a></li>
-        {% endfor %}
-    </ul>
-
-
-</div>
-
-<div class="col-md-3">
-    <a href="{% url 'url_nova' %}" class="btn btn-primary pull-right h2">Novo Item</a>
-</div>
 
 
 <div id="main" class="container-fluid">
 
-    <div id="list" class="row">
+    <div class="text-right">
+        <a href="{% url 'url_nova' %}" class="btn btn-primary pull-right h2">Novo Item</a>
+    </div>
 
-        <div class="table-responsive col-md-">
-            <table class="table table-striped" cellspacing="0" cellpadding="0">
-                <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Descrição</th>
-                    <th>Data</th>
-                    <th>Valor</th>
-                    <th>Categoria</th>
-                    <th class="actions">Ações</th>
-                </tr>
-                </thead>
-                <tbody>
-                {% for transacao in transacoes %}
-                <tr>
-                    <td>1</td>
-                    <td>{{ transacao.descricao }}</td>
-                    <td>{{ transacao.data }}</td>
-                    <td>{{ transacao.valor }}</td>
-                    <td>{{ transacao.categoria }}</td>
 
-                    <td class="actions">
-                        <a class="btn btn-primary btn-xs" href="{% url 'url_nova' %}">Novo Item</a>
-                        <a class="btn btn-success btn-xs" href="">Visualizar</a>
-                        <a class="btn btn-warning btn-xs" href="{% url 'url_update' transacao.id %}">Editar</a>
-                        <a class="btn btn-danger btn-xs" href="{% url 'url_delete' transacao.id %}" data-toggle="modal"
-                           data-target="#delete-modal">Excluir</a>
-                    </td>
+    <div id="main" class="container-fluid">
+
+        <div id="list" class="row">
+
+            <div class="table-responsive col-md-">
+                <table class="table table-striped" cellspacing="0" cellpadding="0">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Descrição</th>
+                        <th>Data</th>
+                        <th>Valor</th>
+                        <th>Categoria</th>
+                        <th class="actions">Ações</th>
+                    </tr>
+                    </thead>
+                    {% for transacao in transacoes %}
+                    <tbody>
+                    <tr>
+                        <td>{{ transacao.id }}</td>
+                        <td>{{ transacao.descricao }}</td>
+                        <td>{{ transacao.data }}</td>
+                        <td>{{ transacao.valor }}</td>
+                        <td>{{ transacao.categoria }}</td>
+
+                        <td class="actions">
+                            <a class="btn btn-success btn-xs" href="" data-toggle="modal" data-target="#exampleModal {{ transacao.id }}">Visualizar</a>
+                            <a class="btn btn-warning btn-xs" href="{% url 'url_update' transacao.id %}">Editar</a>
+                            <a class="btn btn-danger btn-xs" href="{% url 'url_delete' transacao.id %}">Excluir</a>
+                        </td>
+
+                    </tr>
+
+
+                    <!-- Inicio Modal -->
+                    <div class="modal fade" id="exampleModal {{ transacao.id }}" tabindex="-1" role="dialog"
+                         aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">{{ transacao.descricao }}</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>{{ transacao.descricao }}</p>
+                                    <p>{{ transacao.observacoes }}</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     {% endfor %}
-                </tr>
+                    </tbody>
+                </table>
 
-                </tbody>
-            </table>
+            </div>
+        </div> <!-- /#list -->
+    </div>
 
-        </div>
-    </div> <!-- /#list -->
-</div>
-
-
-
-{% endblock %}
+    {% endblock %}

@@ -16,7 +16,7 @@ def home(request):
     #html = "<html><body>It is now %s.</body></html>" % now
     return render(request, 'contas/home.html', data)
 
-@login_required(login_url='/login/')
+
 def listagem(request):
     data = {}
     data['transacoes'] = Transacao.objects.all()
