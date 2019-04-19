@@ -17,6 +17,8 @@ from django.contrib import admin
 from django.urls import path
 from contas.views import home, listagem, nova_transacao, update, delete, login, login_submit
 
+
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', listagem, name='url_listagem'),
